@@ -25,7 +25,7 @@ app.register_blueprint(task_bp, url_prefix='/api')
 # JWT additional claims
 @jwt.additional_claims_loader
 def make_additional_claims(identity):
-    return {"is_admin": identity == "Test User2"}
+    return {"is_admin": identity == "Test User6"}
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):

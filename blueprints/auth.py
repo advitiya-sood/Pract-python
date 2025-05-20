@@ -31,6 +31,7 @@ def register_user():
 def login_user():
 
     data=request.get_json()
+    print("DATA------------------------------------",data)
 
     user=User.get_user_by_username(username=data.get('username'))
 

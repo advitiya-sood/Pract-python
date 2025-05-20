@@ -25,10 +25,33 @@ def get_all_users():
             per_page=per_page
         )
 
-        result=UserSchema().dump(users,many=True)
 
+        print("Users---------------",users)
+        print("Users---------------itemssss",users.items)
+
+
+        result=UserSchema().dump(users,many=True)
+        
         return jsonify({
             "users":result
         }),200
     
     return jsonify({"Message": "Not an  admin member"})
+
+@user_bp.get('/me')
+@jwt_required()
+def get_current_user():
+    from flask_jwt_extended import current_user
+
+    if not current_user:
+        return jsonify({"message": "User not found"}), 404
+
+    user_data = {
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email,
+        "is_admin": current_user.is_admin,
+        # Add more fields as needed
+    }
+
+    return jsonify({"user": user_data}), 200
